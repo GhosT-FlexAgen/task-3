@@ -1,6 +1,7 @@
 # Maze on Python
 
 [![CI/CD Github Actions](https://github.com/GhosT-FlexAgen/task-3/actions/workflows/pytest.yml/badge.svg)](https://github.com/GhosT-FlexAgen/task-3/actions/workflows/pytest.yml)
+[![Coverage Status](https://coveralls.io/repos/github/GhosT-FlexAgen/task-3/badge.svg?branch=master)](https://coveralls.io/github/GhosT-FlexAgen/task-3?branch=master)
 
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=GhosT-FlexAgen_task-3&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=GhosT-FlexAgen_task-3)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=GhosT-FlexAgen_task-3&metric=bugs)](https://sonarcloud.io/summary/new_code?id=GhosT-FlexAgen_task-3)
