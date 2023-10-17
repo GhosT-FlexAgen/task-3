@@ -1,7 +1,7 @@
 import sys
 from io import StringIO
 
-sys.path.insert(1, '../src/')
+sys.path.insert(1, './src/')
 import main
 
 
