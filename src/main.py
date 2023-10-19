@@ -2,13 +2,13 @@ import readchar
 from enemy import Enemy
 from hero import Hero
 from map import Map, doRecursiveDivision
-from game_results import lose, win
+from game_results import game_result
 
 def game():
     map = Map(21, 21, 1, 1)
     hero = Hero(map.start)
     doRecursiveDivision(map)
-    enemy = Enemy(map, 4)
+    enemy = Enemy(map, 5)
     map.showMap(hero, enemy)
     while True:
         c = str(readchar.readchar())
@@ -26,11 +26,7 @@ def game():
         enemy.move_enemy(map)
         map.showMap(hero, enemy)
 
-        if map.lose_flag == 1:
-            lose()
-            exit()
-        if map.win_flag == 1:
-            win()
+        if game_result(map):
             exit()
 
 if __name__ == "__main__":

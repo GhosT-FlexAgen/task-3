@@ -1,4 +1,6 @@
 import os
+from map import Map
+
 
 def lose():
     os.system('clear')
@@ -11,6 +13,7 @@ def lose():
     print(r"    | | | \ \ / /|  _| | |_) | ", end='\n')
     print(r"    | |_| |\ V / | |___|  _ <  ", end='\n')
     print(r"     \___/  \_/  |_____|_| \_| ", end='\n')
+
 
 def win():
     os.system('clear')
@@ -30,3 +33,13 @@ def win():
     print(r"          ╭╮╲┉╰━━━╯┉╱╭╮        ", end='\n')
     print(r"         ╭┛┣━╲ --- ╱━┫┗╮       ", end='\n')
     print(r"         ╰━┻━╮▔▔▔▔▔╭━┻━╯       ", end='\n')
+
+
+def game_result(map):
+    if map.win_flag == 1:
+        win()
+
+    elif map.lose_flag == 1:
+        lose()
+
+    return map.win_flag == 1 or map.lose_flag == 1

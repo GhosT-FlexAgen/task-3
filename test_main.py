@@ -5,53 +5,6 @@ sys.path.insert(1, './src/')
 import main
 
 
-def test_print_lose():
-    stdout_lose = \
-'     ____    _    __  __ _____ \n\
-    / ___|  / \\  |  \\/  | ____|\n\
-   | | __  / _ \\ | |\\/| |  _|  \n\
-   | |_\\ \\/ ___ \\| |  | | |___ \n\
-    \\____/_/   \\_\\_|__|_|_____|\n\
-     / _ \\ \\   / / ____|  _ \\  \n\
-    | | | \\ \\ / /|  _| | |_) | \n\
-    | |_| |\\ V / | |___|  _ <  \n\
-     \\___/  \\_/  |_____|_| \\_| \n'
-
-    old_out = sys.stdout
-    buff_io = StringIO()
-    sys.stdout = buff_io
-    main.lose()
-    assert(buff_io.getvalue() == stdout_lose)
-    sys.stdout = old_out
-
-
-def test_print_win():
-    stdout_win = \
-'   __        ______ _    _     \n\
-   \\ \\      / /____| |  | |    \n\
-    \\ \\ /\\ / /  _| | |  | |    \n\
-     \\ V  V /| |___| |__| |__  \n\
-    __\\_/\\_/_|_____|____|____| \n\
-   |  _ \\ / _ \\| \\ | | ____| | \n\
-   | | | | | | |  \\| |  _| | | \n\
-   | |_| | |_| | |\\  | |___|_| \n\
-   |____/ \\___/|_| \\_|_____(_) \n\
-                ◯             \n\
-                ┃              \n\
-             ╱☉▔☉▔☉╲           \n\
-           ▕╲▏┓---┏▕╱▏         \n\
-          ╭╮╲┉╰━━━╯┉╱╭╮        \n\
-         ╭┛┣━╲ --- ╱━┫┗╮       \n\
-         ╰━┻━╮▔▔▔▔▔╭━┻━╯       \n'
-
-    old_out = sys.stdout
-    buff_io = StringIO()
-    sys.stdout = buff_io
-    main.win()
-    assert(buff_io.getvalue() == stdout_win)
-    sys.stdout = old_out
-
-
 def test_create_map():
     labyrint = main.Map(3, 3, 1, 1)
     main.doRecursiveDivision(labyrint)
@@ -227,3 +180,113 @@ def test_game_lose():
     labyrint.showMap(hero, enemy)
     assert(labyrint.win_flag == 0)
     assert(labyrint.lose_flag == 1)
+
+
+
+
+def test_print_lose():
+    labyrint = main.Map(5, 3, 1, 1)
+    main.doRecursiveDivision(labyrint)
+    hero = main.Hero(labyrint.start)
+    enemy = main.Enemy(labyrint, 1)
+    enemy.enemy = [(2, 1)]
+
+    hero.move_D(labyrint)
+    labyrint.showMap(hero, enemy)
+    assert(labyrint.win_flag == 0)
+    assert(labyrint.lose_flag == 1)
+
+    stdout_lose = \
+'     ____    _    __  __ _____ \n\
+    / ___|  / \\  |  \\/  | ____|\n\
+   | | __  / _ \\ | |\\/| |  _|  \n\
+   | |_\\ \\/ ___ \\| |  | | |___ \n\
+    \\____/_/   \\_\\_|__|_|_____|\n\
+     / _ \\ \\   / / ____|  _ \\  \n\
+    | | | \\ \\ / /|  _| | |_) | \n\
+    | |_| |\\ V / | |___|  _ <  \n\
+     \\___/  \\_/  |_____|_| \\_| \n'
+
+    old_out = sys.stdout
+    buff_io = StringIO()
+    sys.stdout = buff_io
+    main.game_result(labyrint)
+    assert(buff_io.getvalue() == stdout_lose)
+    sys.stdout = old_out
+
+
+def test_print_win():
+    labyrint = main.Map(4, 3, 1, 1)
+    hero = main.Hero(labyrint.start)
+    enemy = main.Enemy(labyrint, 0)
+
+    hero.move_D(labyrint)
+    labyrint.showMap(hero, enemy)
+
+    stdout_win = \
+'   __        ______ _    _     \n\
+   \\ \\      / /____| |  | |    \n\
+    \\ \\ /\\ / /  _| | |  | |    \n\
+     \\ V  V /| |___| |__| |__  \n\
+    __\\_/\\_/_|_____|____|____| \n\
+   |  _ \\ / _ \\| \\ | | ____| | \n\
+   | | | | | | |  \\| |  _| | | \n\
+   | |_| | |_| | |\\  | |___|_| \n\
+   |____/ \\___/|_| \\_|_____(_) \n\
+                ◯             \n\
+                ┃              \n\
+             ╱☉▔☉▔☉╲           \n\
+           ▕╲▏┓---┏▕╱▏         \n\
+          ╭╮╲┉╰━━━╯┉╱╭╮        \n\
+         ╭┛┣━╲ --- ╱━┫┗╮       \n\
+         ╰━┻━╮▔▔▔▔▔╭━┻━╯       \n'
+
+    old_out = sys.stdout
+    buff_io = StringIO()
+    sys.stdout = buff_io
+    main.game_result(labyrint)
+    assert(buff_io.getvalue() == stdout_win)
+    sys.stdout = old_out
+
+
+def test_move_hero_when_enemy_in_finish():
+    # # # #
+    # X F # and O in F
+    # # # #
+
+    labyrint = main.Map(4, 3, 1, 1)
+    hero = main.Hero(labyrint.start)
+    enemy = main.Enemy(labyrint, 1)
+    enemy.enemy = [(2, 1)]
+
+    hero.move_D(labyrint)
+    labyrint.showMap(hero, enemy)
+
+    assert(labyrint.win_flag == 1)
+    assert(labyrint.lose_flag == 1)
+
+    stdout_win = \
+'   __        ______ _    _     \n\
+   \\ \\      / /____| |  | |    \n\
+    \\ \\ /\\ / /  _| | |  | |    \n\
+     \\ V  V /| |___| |__| |__  \n\
+    __\\_/\\_/_|_____|____|____| \n\
+   |  _ \\ / _ \\| \\ | | ____| | \n\
+   | | | | | | |  \\| |  _| | | \n\
+   | |_| | |_| | |\\  | |___|_| \n\
+   |____/ \\___/|_| \\_|_____(_) \n\
+                ◯             \n\
+                ┃              \n\
+             ╱☉▔☉▔☉╲           \n\
+           ▕╲▏┓---┏▕╱▏         \n\
+          ╭╮╲┉╰━━━╯┉╱╭╮        \n\
+         ╭┛┣━╲ --- ╱━┫┗╮       \n\
+         ╰━┻━╮▔▔▔▔▔╭━┻━╯       \n'
+
+    old_out = sys.stdout
+    buff_io = StringIO()
+    sys.stdout = buff_io
+    main.game_result(labyrint)
+    assert(buff_io.getvalue() == stdout_win)
+    sys.stdout = old_out
+

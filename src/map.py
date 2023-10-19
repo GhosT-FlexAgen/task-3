@@ -49,8 +49,11 @@ class Map():
                     if hero.X == enemy.enemy[k][1] and hero.Y == enemy.enemy[k][0]:
                         map.lose_flag = 1
                     if i == enemy.enemy[k][1] and j == enemy.enemy[k][0]:
+                        if map.lose_flag != 1 and map.win_flag != 1 and i == map.finish[0] and j == map.finish[1]:
+                            continue
                         print('O', end=' ')
                         enemy_flag = 1
+
                 if map.lose_flag != 1 and map.win_flag != 1:
                     if i == hero.X and j == hero.Y:
                         print('X', end=' ')
